@@ -135,45 +135,10 @@
 	<terms-and-conditions params="model: $data"></terms-and-conditions>
 	<!-- /ko -->
 	<script>
-		const msalConfig = {
-			auth: {
-				clientId: "f06cc2c2-be11-4a2e-9db7-f4c27147cc0e",
-				authority: "https://login.microsoftonline.com/7266b166-c08a-4bdf-babd-868d05984b80",
-				redirectUri: "/"
-			}
-		};
+		
 
-		const msalInstance = new msal.PublicClientApplication(msalConfig);
+	</script>
 
-		function signIn() {
-			msalInstance.loginPopup()
-				.then(response => {
-					// Handle successful login
-					// Update Knockout ViewModel or observables as needed
-				})
-				.catch(error => {
-					console.error(error);
-				});
-		}
-	
-		function signOut() {
-			msalInstance.logout();
-		}
-	</script>
-	<script>
-		// Define your ViewModel
-		function AppViewModel() {
-			this.isUserAuthenticated = ko.observable(false);
-	
-			// Check if the user is already signed in
-			if (msalInstance.getAllAccounts().length > 0) {
-				this.isUserAuthenticated(true);
-			}
-		}
-	
-		// Activating Knockout.js
-		ko.applyBindings(new AppViewModel());
-	</script>
 	<script>
 		// define waitSeconds above require script tag
 		// to override the default, until main.js loads

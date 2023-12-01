@@ -59,8 +59,33 @@ define(
 				this.initializationComplete = ko.pureComputed(() => {
 					return sharedState.appInitializationStatus() != constants.applicationStatuses.initializing;
 				});
+				this.msalConfig = {
+					auth: {
+						clientId: "f06cc2c2-be11-4a2e-9db7-f4c27147cc0e",
+						authority: "https://login.microsoftonline.com/7266b166-c08a-4bdf-babd-868d05984b80",
+						redirectUri: "/"
+					}
+				};
 
-				this.toggleBrowserWarning = function(bowser) {
+				this.msalInstance = new msal.PublicClientApplication(msalConfig);
+				this.signin = function () {
+					this.msalInstance.loginPopup()
+						.then(response => {
+							// Handle successful login
+							// Update Knockout ViewModel or observables as needed
+						})
+						.catch(error => {
+							console.error(error);
+						});
+				}
+
+				this.isUserAuthenticated = ko.observable(false);
+
+				if (msalInstance.getAllAccounts().length > 0) {
+					this.isUserAuthenticated(true);
+				}
+
+				this.toggleBrowserWarning = function (bowser) {
 					const browserInfo = bowser.getParser(navigator.userAgent).getBrowser();
 					const isBrowserSupported = browserInfo.name.toLowerCase() === 'chrome' && parseInt(browserInfo.version) > 63;
 					return !config.disableBrowserCheck && !isBrowserSupported;
@@ -70,7 +95,7 @@ define(
 				this.noSourcesAvailable = ko.pureComputed(() => {
 					return this.appInitializationStatus() === constants.applicationStatuses.noSourcesAvailable && this.router.currentView() !== 'ohdsi-configuration';
 				});
-				this.appInitializationErrorMessage =  ko.computed(() => {
+				this.appInitializationErrorMessage = ko.computed(() => {
 					if (this.noSourcesAvailable()) {
 						return ko.i18n('commonErrors.noSources', 'The current WebAPI has no sources defined.<br/>Please add one or more on <a href="#/configure">configuration</a> page.')();
 					} else if (this.appInitializationStatus() !== constants.applicationStatuses.noSourcesAvailable) {
@@ -114,7 +139,7 @@ define(
 					httpService.setUnauthorizedHandler(() => authApi.resetAuthParams());
 					httpService.setUserTokenGetter(() => authApi.getAuthorizationHeader());
 
-					try{
+					try {
 						await i18nService.getAvailableLocales();
 					} catch (e) {
 						reject(e.message);
