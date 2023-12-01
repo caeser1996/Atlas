@@ -72,6 +72,7 @@ define(
 					this.msalInstance.loginPopup()
 						.then(response => {
 							// Handle successful login
+							this.isUserAuthenticated(true);
 							// Update Knockout ViewModel or observables as needed
 						})
 						.catch(error => {
@@ -81,7 +82,7 @@ define(
 
 				this.isUserAuthenticated = ko.observable(false);
 
-				if (msalInstance.getAllAccounts().length > 0) {
+				if (this.msalInstance.getAllAccounts().length > 0) {
 					this.isUserAuthenticated(true);
 				}
 
