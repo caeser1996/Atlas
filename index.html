@@ -20,8 +20,11 @@
 </head>
 
 <body class="app">
-	<button data-bind="click: signIn">Sign In</button>
-	<button data-bind="click: signOut">Sign Out</button>
+	<div style="text-align: center; margin-top: 20px;">
+		<button data-bind="click: signIn">Sign In</button>
+		<button data-bind="click: signOut">Sign Out</button>
+	</div>
+	
 	<div data-bind="visible: isUserAuthenticated">
 		<div id="b-alarm" style="display: none" class="browser-alarm" data-bind="visible: toggleBrowserWarning(bowser)">
 			<div class="browser-alarm__warning-text"
@@ -158,11 +161,20 @@
 		}
 	</script>
 	<script>
-		alert("here");
-
+		// Define your ViewModel
+		function AppViewModel() {
+			this.isUserAuthenticated = ko.observable(false);
+	
+			// Check if the user is already signed in
+			if (msalInstance.getAllAccounts().length > 0) {
+				this.isUserAuthenticated(true);
+			}
+		}
+	
+		// Activating Knockout.js
+		ko.applyBindings(new AppViewModel());
 	</script>
 	<script>
-		alert("here");
 		// define waitSeconds above require script tag
 		// to override the default, until main.js loads
 		//see https://github.com/yeoman/yeoman/issues/1051
