@@ -2,8 +2,6 @@ define(
 	(require, factory) => {
     const { Route } = require('pages/Route');
     const authApi = require('services/AuthAPI');
-   alert("here")
-   alert("here")
     function routes(router) {
       return {
         '/': new Route(() => {
