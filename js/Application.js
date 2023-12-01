@@ -68,7 +68,7 @@ define(
 				};
 
 				this.msalInstance = new msal.PublicClientApplication(this.msalConfig);
-				this.signin = function () {
+				this.signIn = function () {
 					this.msalInstance.loginPopup()
 						.then(response => {
 							// Handle successful login
