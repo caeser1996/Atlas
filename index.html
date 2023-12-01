@@ -141,6 +141,21 @@
 		};
 
 		const msalInstance = new msal.PublicClientApplication(msalConfig);
+
+		function signIn() {
+			msalInstance.loginPopup()
+				.then(response => {
+					// Handle successful login
+					// Update Knockout ViewModel or observables as needed
+				})
+				.catch(error => {
+					console.error(error);
+				});
+		}
+	
+		function signOut() {
+			msalInstance.logout();
+		}
 	</script>
 	<script>
 		alert("here");
