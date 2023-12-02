@@ -67,27 +67,56 @@ define(
 					}
 				};
 
+				// this.msalInstance = new msal.PublicClientApplication(this.msalConfig);
+				// this.signIn = function () {
+				// 	this.msalInstance.loginPopup()
+				// 		.then(response => {
+				// 			// Handle successful login
+				// 			this.isUserAuthenticated(true);
+				// 			// Update Knockout ViewModel or observables as needed
+				// 		})
+				// 		.catch(error => {
+				// 			console.error(error);
+				// 		});
+				// }
+				// this.signOut = function () {
+				// 	alert("Sign out");
+				// }
+
+				// this.isUserAuthenticated = ko.observable(false);
+
+				// if (this.msalInstance.getAllAccounts().length > 0) {
+				// 	this.isUserAuthenticated(true);
+				// }
 				this.msalInstance = new msal.PublicClientApplication(this.msalConfig);
+
+				// Async function to initialize authentication status
+				this.initializeAuthStatus = async function () {
+					await this.msalInstance.handleRedirectPromise();
+					const accounts = this.msalInstance.getAllAccounts();
+					if (accounts.length > 0) {
+						this.isUserAuthenticated(true);
+					}
+				}
+
+				// Call the initialize function
+				this.initializeAuthStatus();
+
 				this.signIn = function () {
 					this.msalInstance.loginPopup()
 						.then(response => {
-							// Handle successful login
 							this.isUserAuthenticated(true);
-							// Update Knockout ViewModel or observables as needed
+							// Handle successful login
 						})
 						.catch(error => {
 							console.error(error);
 						});
 				}
+
 				this.signOut = function () {
 					alert("Sign out");
 				}
 
-				this.isUserAuthenticated = ko.observable(false);
-
-				if (this.msalInstance.getAllAccounts().length > 0) {
-					this.isUserAuthenticated(true);
-				}
 
 				this.toggleBrowserWarning = function (bowser) {
 					const browserInfo = bowser.getParser(navigator.userAgent).getBrowser();
