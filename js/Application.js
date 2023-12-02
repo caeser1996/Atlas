@@ -59,6 +59,7 @@ define(
 				this.initializationComplete = ko.pureComputed(() => {
 					return sharedState.appInitializationStatus() != constants.applicationStatuses.initializing;
 				});
+				this.isUserAuthenticated = ko.observable(false);
 				this.msalConfig = {
 					auth: {
 						clientId: "f06cc2c2-be11-4a2e-9db7-f4c27147cc0e",
@@ -67,6 +68,34 @@ define(
 					}
 				};
 
+				this.msalInstance = new msal.PublicClientApplication(this.msalConfig);
+
+				// Async function to initialize authentication status
+				this.initializeAuthStatus = async () => {
+					await this.msalInstance.handleRedirectPromise();
+					const accounts = this.msalInstance.getAllAccounts();
+					this.isUserAuthenticated(accounts.length > 0);
+				};
+
+				// Call the initialize function
+				this.initializeAuthStatus();
+
+				this.signIn = () => {
+					this.msalInstance.loginPopup()
+						.then(response => {
+							this.isUserAuthenticated(true);
+							// Handle successful login
+						})
+						.catch(error => {
+							console.error(error);
+						});
+				};
+
+				this.signOut = () => {
+					// Perform sign out operations
+					this.isUserAuthenticated(false);
+					alert("Signed out");
+				};
 				// this.msalInstance = new msal.PublicClientApplication(this.msalConfig);
 				// this.signIn = function () {
 				// 	this.msalInstance.loginPopup()
@@ -91,31 +120,7 @@ define(
 				this.msalInstance = new msal.PublicClientApplication(this.msalConfig);
 
 				// Async function to initialize authentication status
-				this.initializeAuthStatus = async function () {
-					await this.msalInstance.handleRedirectPromise();
-					const accounts = this.msalInstance.getAllAccounts();
-					if (accounts.length > 0) {
-						this.isUserAuthenticated(true);
-					}
-				}
 
-				// Call the initialize function
-				this.initializeAuthStatus();
-
-				this.signIn = function () {
-					this.msalInstance.loginPopup()
-						.then(response => {
-							this.isUserAuthenticated(true);
-							// Handle successful login
-						})
-						.catch(error => {
-							console.error(error);
-						});
-				}
-
-				this.signOut = function () {
-					alert("Sign out");
-				}
 
 
 				this.toggleBrowserWarning = function (bowser) {
