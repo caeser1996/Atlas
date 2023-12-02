@@ -63,7 +63,7 @@ define(
 					auth: {
 						clientId: "f06cc2c2-be11-4a2e-9db7-f4c27147cc0e",
 						authority: "https://login.microsoftonline.com/7266b166-c08a-4bdf-babd-868d05984b80",
-						redirectUri: "/"
+						redirectUri: "http://127.0.0.1/atlas/#/home"
 					}
 				};
 
