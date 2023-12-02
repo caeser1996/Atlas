@@ -20,7 +20,7 @@
 </head>
 
 <body class="app">
-	<div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); text-align: center; border: 1px solid #ccc; border-radius: 8px; box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2); max-width: 300px; padding: 80px; background-color: white; background: linear-gradient(to right, #ffffff 0%, #6dd5ed 100%);">
+	<div data-bind="visible: !isUserAuthenticated" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); text-align: center; border: 1px solid #ccc; border-radius: 8px; box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2); max-width: 300px; padding: 80px; background-color: white; background: linear-gradient(to right, #ffffff 0%, #6dd5ed 100%);">
 		<button style="background-color: #4CAF50; /* Green */
 					   border: none;
 					   color: white;
@@ -33,7 +33,7 @@
 					   cursor: pointer;
 					   border-radius: 4px;" 
 				data-bind="click: signIn">Login with Azure AD</button>
-		<button style="background-color: #f44336; /* Red */
+		<!-- <button style="background-color: #f44336; /* Red */
 					   border: none;
 					   color: white;
 					   padding: 10px 20px;
@@ -44,7 +44,7 @@
 					   margin: 4px 2px;
 					   cursor: pointer;
 					   border-radius: 4px;" 
-				data-bind="click: signOut">Sign Out</button>
+				data-bind="click: signOut">Sign Out</button> -->
 	</div>
 	
 	

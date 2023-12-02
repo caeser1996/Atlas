@@ -19,8 +19,20 @@
 			<div data-bind="title: ko.i18n('components.userBar.signin', 'Sign In'), if: !isLoggedIn() || tokenExpired()">
 				<span class="pipe">|</span><a data-bind="click: function () { $component.signInOpened(true) }"><i class="fa fa-sign-in-alt"></i><span data-bind="text: ko.i18n('components.userBar.signin', 'Sign In')"></span></a>
 			</div>
-			<div data-bind="title: ko.i18n('components.userBar.signout', 'Sign Out'), if: isLoggedIn() && !tokenExpired()">
-				<span class="pipe">|</span><a data-bind="click: function () { $component.signInOpened(true) }"><strong data-bind="text: fullName"></strong><i class="fa fa-user-circle fa-lg" aria-hidden="true"></i></a>
+			<div >
+				<button style="background-color: #f44336; /* Red */
+					   border: none;
+					   color: white;
+					   padding: 10px 20px;
+					   text-align: center;
+					   text-decoration: none;
+					   display: inline-block;
+					   font-size: 16px;
+					   margin: 4px 2px;
+					   cursor: pointer;
+					   border-radius: 4px;" 
+				data-bind="click: signOut">Sign Out</button>
+				<!-- <span class="pipe">|</span><a data-bind="click: function () { $component.signInOpened(true) }"><strong data-bind="text: fullName"></strong><i class="fa fa-user-circle fa-lg" aria-hidden="true"></i></a> -->
 			</div>
 		</div>
 	</div>
