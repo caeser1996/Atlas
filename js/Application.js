@@ -59,7 +59,9 @@ define(
 				this.initializationComplete = ko.pureComputed(() => {
 					return sharedState.appInitializationStatus() != constants.applicationStatuses.initializing;
 				});
+
 				this.isUserAuthenticated = ko.observable(false);
+   				 this.isAuthInitialized = ko.observable(false); 
 				this.msalConfig = {
 					auth: {
 						clientId: "f06cc2c2-be11-4a2e-9db7-f4c27147cc0e",
@@ -75,6 +77,7 @@ define(
 					await this.msalInstance.handleRedirectPromise();
 					const accounts = this.msalInstance.getAllAccounts();
 					this.isUserAuthenticated(accounts.length > 0);
+					this.isAuthInitialized(true); 
 				};
 
 				// Call the initialize function
