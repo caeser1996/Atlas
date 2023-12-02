@@ -79,6 +79,9 @@ define(
 							console.error(error);
 						});
 				}
+				this.signOut = function () {
+					alert("Sign out");
+				}
 
 				this.isUserAuthenticated = ko.observable(false);
 
