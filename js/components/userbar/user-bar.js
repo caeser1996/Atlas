@@ -119,7 +119,7 @@ define([
 
 			this.msalInstance = new msal.PublicClientApplication(this.msalConfig);
 
-			this.clearAllCookies=()=> {
+			this.clearAllCookies = () => {
 				const cookies = document.cookie.split(";");
 			
 				for (let cookie of cookies) {
@@ -127,7 +127,9 @@ define([
 					const name = eqPos > -1 ? cookie.substr(0, eqPos) : cookie;
 					document.cookie = name + "=;expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/";
 				}
-			}
+			
+				sessionStorage.clear();
+			};
 			this.userName = ko.observable('');
 			this.initializeAuthStatus = async () => {
 				await this.msalInstance.handleRedirectPromise();
