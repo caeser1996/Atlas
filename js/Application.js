@@ -73,13 +73,26 @@ define(
 				};
 
 				this.msalInstance = new msal.PublicClientApplication(this.msalConfig);
-
+				this.clearAllCookies = () => {
+					const cookies = document.cookie.split(";");
+				
+					for (let cookie of cookies) {
+						const eqPos = cookie.indexOf("=");
+						const name = eqPos > -1 ? cookie.substr(0, eqPos) : cookie;
+						document.cookie = name + "=;expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/";
+					}
+				
+					sessionStorage.clear();
+				};
 				// Async function to initialize authentication status
 				this.initializeAuthStatus = async () => {
 					await this.msalInstance.handleRedirectPromise();
 					const accounts = this.msalInstance.getAllAccounts();
 					console.log(accounts)
 					this.isUserAuthenticated(accounts.length > 0);
+					if(accounts.length < 0){
+						this.clearAllCookies();
+					}
 					this.isAuthInitialized(true); 
 				};
 
