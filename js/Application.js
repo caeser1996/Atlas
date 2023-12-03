@@ -63,7 +63,7 @@ define(
 
 			
 				this.isUserAuthenticated = ko.observable(azureAdToken ? true : false);
-   				this.isAuthInitialized = ko.observable(false); 
+   				this.isAuthInitialized = ko.observable(azureAdToken ? false : true); 
 				this.msalConfig = {
 					auth: {
 						clientId: "f06cc2c2-be11-4a2e-9db7-f4c27147cc0e",
