@@ -89,6 +89,9 @@ define(
 						.then(response => {
 							console.log(response,"Token Response")
 							this.isUserAuthenticated(true);
+
+							localStorage.setItem('azureAd', JSON.stringify(response));
+
 							// Handle successful login
 						})
 						.catch(error => {
