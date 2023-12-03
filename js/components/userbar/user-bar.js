@@ -133,7 +133,6 @@ define([
 				await this.msalInstance.handleRedirectPromise();
 				const accounts = this.msalInstance.getAllAccounts();
 				console.log(accounts)
-				this.isUserAuthenticated(accounts.length > 0);
 				if (accounts.length > 0) {
 					// Assuming the user's name is stored in the 'name' property
 					this.userName(accounts[0].name);
