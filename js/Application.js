@@ -76,6 +76,7 @@ define(
 				this.initializeAuthStatus = async () => {
 					await this.msalInstance.handleRedirectPromise();
 					const accounts = this.msalInstance.getAllAccounts();
+					console.log(accounts)
 					this.isUserAuthenticated(accounts.length > 0);
 					this.isAuthInitialized(true); 
 				};
@@ -94,11 +95,7 @@ define(
 						});
 				};
 
-				this.signOut = () => {
-					// Perform sign out operations
-					this.isUserAuthenticated(false);
-					alert("Signed out");
-				};
+				
 				// this.msalInstance = new msal.PublicClientApplication(this.msalConfig);
 				// this.signIn = function () {
 				// 	this.msalInstance.loginPopup()
