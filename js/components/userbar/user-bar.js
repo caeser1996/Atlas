@@ -119,7 +119,7 @@ define([
 
 			this.msalInstance = new msal.PublicClientApplication(this.msalConfig);
 
-			function clearAllCookies() {
+			this.clearAllCookies=()=> {
 				const cookies = document.cookie.split(";");
 			
 				for (let cookie of cookies) {
@@ -134,10 +134,10 @@ define([
 				localStorage.clear();
 
 				// Clearing all cookies
-				clearAllCookies();
+				this.clearAllCookies();
 			
 				// MSAL logout
-				msalInstance.logoutPopup().then(() => {
+				this.msalInstance.logoutPopup().then(() => {
 					console.log('User logged out');
 					// Redirect to home page or login page after successful logout
 					window.location.href = '/';

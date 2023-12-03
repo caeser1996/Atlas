@@ -87,6 +87,7 @@ define(
 				this.signIn = () => {
 					this.msalInstance.loginPopup()
 						.then(response => {
+							console.log(response,"Token Response")
 							this.isUserAuthenticated(true);
 							// Handle successful login
 						})
