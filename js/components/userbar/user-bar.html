@@ -12,7 +12,7 @@
 			<option data-bind="value: $data.code, text:$data.name"></option>
 		</select>
 		<button data-bind="click: signOut"style="background-color: #ffcc00; color: black; border: none; padding: 5px 10px; cursor: pointer;">
-			Sign Out
+			Sign Out <span data-bind="text: userName"></span>
 		</button>
 		<!-- /ko -->
 		<!-- ko if: isLoggedIn -->

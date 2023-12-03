@@ -128,6 +128,22 @@ define([
 					document.cookie = name + "=;expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/";
 				}
 			}
+			this.userName = ko.observable('');
+			this.initializeAuthStatus = async () => {
+				await this.msalInstance.handleRedirectPromise();
+				const accounts = this.msalInstance.getAllAccounts();
+				console.log(accounts)
+				this.isUserAuthenticated(accounts.length > 0);
+				if (accounts.length > 0) {
+					// Assuming the user's name is stored in the 'name' property
+					this.userName(accounts[0].name);
+				}
+			};
+			
+			// Call the initialize function
+			this.initializeAuthStatus();
+
+			
 			this.signOut = () => {
 				// Perform sign out operations
 				// this.isUserAuthenticated(false);
