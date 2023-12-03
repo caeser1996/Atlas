@@ -59,9 +59,11 @@ define(
 				this.initializationComplete = ko.pureComputed(() => {
 					return sharedState.appInitializationStatus() != constants.applicationStatuses.initializing;
 				});
+				var azureAdToken = localStorage.getItem('azureAd');
 
-				this.isUserAuthenticated = ko.observable(false);
-   				 this.isAuthInitialized = ko.observable(false); 
+			
+				this.isUserAuthenticated = ko.observable(azureAdToken ? true : false);
+   				this.isAuthInitialized = ko.observable(false); 
 				this.msalConfig = {
 					auth: {
 						clientId: "f06cc2c2-be11-4a2e-9db7-f4c27147cc0e",
